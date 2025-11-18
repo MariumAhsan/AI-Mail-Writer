@@ -12,14 +12,37 @@ export default function Home() {
   const [showToneOptions, setShowToneOptions] = useState(false);
   const [showLengthOptions, setShowLengthOptions] = useState(false);
 
-  const toneOptions = ["casual", "professional", "formal", "friendly"];
-  const lengthOptions = ["elaborate", "shorten"];
+  const toneOptions = ["Professional", "Casual", "Friendly", "Formal", "Confident", "Apologetic"];
+  const lengthOptions = ["Elaborate", "Shorten"];
+  
+  type Suggestion = {
+  tone: string;
+  subject: string;
+  company: string;
+  context: string;
+};
 
-  const suggestions = [
-    { tone: "professional", subject: "Business Collaboration Request", company: "TechNova Ltd", context: "Reaching out to explore partnership opportunities." },
-    { tone: "casual", subject: "Quick Follow-up!", company: "BlueWave Studio", context: "Just checking in about our previous discussion." },
-    { tone: "friendly", subject: "Let's Connect!", company: "CreativeForge", context: "I would love to talk about potential collaboration." }
-  ];
+  const suggestions: Suggestion[] = [
+  {
+    tone: "professional",
+    subject: "Business Collaboration Request",
+    company: "TechNova Ltd",
+    context: "Reaching out to explore partnership opportunities."
+  },
+  {
+    tone: "casual",
+    subject: "Quick Follow-up!",
+    company: "BlueWave Studio",
+    context: "Just checking in about our previous discussion."
+  },
+  {
+    tone: "friendly",
+    subject: "Let's Connect!",
+    company: "CreativeForge",
+    context: "I would love to talk about potential collaboration."
+  }
+];
+
 
   async function generateEmail() {
     const res = await fetch("/api/generate", {
@@ -69,8 +92,29 @@ export default function Home() {
         <div className="bg-white/50 backdrop-blur-lg border border-purple-200 shadow-lg rounded-2xl p-6 w-1/2 flex flex-col">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Email Details</h2>
           <div className="space-y-4 flex-1">
-            <input placeholder="Tone (e.g., formal, friendly)" className="w-full p-3 rounded-lg bg-white/70 border border-purple-200 focus:outline-none placeholder-purple-400 text-gray-800" value={tone} onChange={(e) => setTone(e.target.value)} />
-            <input placeholder="Subject" className="w-full p-3 rounded-lg bg-white/70 border border-purple-200 focus:outline-none placeholder-purple-400 text-gray-800" value={subject} onChange={(e) => setSubject(e.target.value)} />
+           <div>
+  <h3 className="text-sm font-semibold text-gray-500 mb-2">Tone</h3>
+
+  <div className="flex flex-wrap gap-3">
+    {toneOptions.map((t) => (
+      <button
+        key={t}
+        onClick={() => {
+          setTone(t);
+        }}
+        className={`px-4 py-2 rounded-xl text-sm shadow transition border 
+          ${tone === t 
+            ? "bg-pink-200 border-pink-400 text-pink-900" 
+            : "bg-white/70 border-purple-200 hover:bg-pink-100 text-gray-700"
+          }
+        `}
+      >
+        {t.charAt(0).toUpperCase() + t.slice(1)}
+      </button>
+    ))}
+  </div>
+</div>
+<input placeholder="Subject" className="w-full p-3 rounded-lg bg-white/70 border border-purple-200 focus:outline-none placeholder-purple-400 text-gray-800" value={subject} onChange={(e) => setSubject(e.target.value)} />
             <input placeholder="Company Name" className="w-full p-3 rounded-lg bg-white/70 border border-purple-200 focus:outline-none placeholder-purple-400 text-gray-800" value={company} onChange={(e) => setCompany(e.target.value)} />
             <textarea placeholder="Context for the email..." className="w-full p-3 h-32 rounded-lg bg-white/70 border border-purple-200 focus:outline-none placeholder-purple-400 text-gray-800" value={context} onChange={(e) => setContext(e.target.value)} />
           </div>
