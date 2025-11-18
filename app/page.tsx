@@ -67,12 +67,12 @@ export default function Home() {
   setContext(s.context);
 }
 
-  function changeTone(newTone) {
+ function changeTone(newTone: string) {
     setTone(newTone);
     setShowToneOptions(false);
   }
 
-  function modifyLength(option) {
+  function modifyLength(option: string) {
     console.log(option);
     setShowLengthOptions(false);
   }
