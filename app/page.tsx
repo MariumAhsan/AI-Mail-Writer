@@ -87,9 +87,9 @@ export default function Home() {
         <p className="text-gray-600 mt-1">Generate emails instantly with AI</p>
       </header>
 
-      <div className="flex w-full max-w-6xl gap-6">
+      <div className="flex flex-col md:flex-row w-full max-w-6xl gap-6">
         {/* Left Form */}
-        <div className="bg-white/50 backdrop-blur-lg border border-purple-200 shadow-lg rounded-2xl p-6 w-1/2 flex flex-col">
+        <div className="bg-white/50 backdrop-blur-lg border border-purple-200 shadow-lg rounded-2xl p-6 w-full md:w-1/2 flex flex-col">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Email Details</h2>
           <div className="space-y-4 flex-1">
            <div>
@@ -125,7 +125,7 @@ export default function Home() {
         </div>
 
         {/* Output Box */}
-        <div className="relative bg-white/50 backdrop-blur-lg border border-purple-200 shadow-lg rounded-2xl p-6 w-1/2">
+        <div className="relative bg-white/50 backdrop-blur-lg border border-purple-200 shadow-lg rounded-2xl p-6 w-full md:w-1/2">
           <h2 className="text-lg font-semibold mb-3 text-gray-700">Generated Email</h2>
           <textarea className="w-full h-80 rounded-lg p-4 pr-20 bg-white/70 border border-purple-200 focus:outline-none resize-none placeholder-purple-400 text-gray-800 shadow-inner" value={result} readOnly />
 
