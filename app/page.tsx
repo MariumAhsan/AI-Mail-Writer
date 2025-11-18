@@ -60,12 +60,12 @@ export default function Home() {
     setTimeout(() => setCopied(false), 1500);
   }
 
-  function applySuggestion(s) {
-    setTone(s.tone);
-    setSubject(s.subject);
-    setCompany(s.company);
-    setContext(s.context);
-  }
+  function applySuggestion(s: Suggestion) {
+  setTone(s.tone);
+  setSubject(s.subject);
+  setCompany(s.company);
+  setContext(s.context);
+}
 
   function changeTone(newTone) {
     setTone(newTone);
