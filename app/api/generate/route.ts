@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`
     },
     body: JSON.stringify({
-      model: "llama-3.1-8b-instant", // ✅ Supported and stable
+      model: "llama-3.1-8b-instant", // Supported and stable
       messages: [
         {
           role: "system",

@@ -24,19 +24,19 @@ export default function Home() {
 
   const suggestions: Suggestion[] = [
   {
-    tone: "professional",
+    tone: "Professional",
     subject: "Business Collaboration Request",
     company: "TechNova Ltd",
     context: "Reaching out to explore partnership opportunities."
   },
   {
-    tone: "casual",
+    tone: "Casual",
     subject: "Quick Follow-up!",
     company: "BlueWave Studio",
     context: "Just checking in about our previous discussion."
   },
   {
-    tone: "friendly",
+    tone: "Friendly",
     subject: "Let's Connect!",
     company: "CreativeForge",
     context: "I would love to talk about potential collaboration."
@@ -68,17 +68,35 @@ export default function Home() {
 }
 
  function changeTone(newTone: string) {
-    setTone(newTone);
-    setShowToneOptions(false);
+  // Prevent tone change if context is empty
+  if (!context.trim()) {
+    alert("Please write the email context first.");
+    return;
   }
+
+  setTone(newTone);
+  setShowToneOptions(false);
+}
+
 
   function modifyLength(option: string) {
-    console.log(option);
-    setShowLengthOptions(false);
+  if (!context.trim()) {
+    alert("Please write the email context first.");
+    return;
   }
 
-  // Auto-generate email whenever tone or length changes
-  useEffect(() => { if (tone) generateEmail(); }, [tone, context]);
+  console.log(option);
+  setShowLengthOptions(false);
+}
+
+
+// Auto-generate email whenever tone or length changes
+useEffect(() => { 
+  if (context.trim() && tone) {
+    generateEmail();
+  }
+}, [tone]);
+
 
   return (
     <div className="min-h-screen p-8 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 flex flex-col items-center fade-in">
@@ -134,14 +152,20 @@ export default function Home() {
            {/* Tone Selector */}
 <div className="relative group">
   <button
-    onClick={() => {
-      setShowToneOptions(!showToneOptions);
-      setShowLengthOptions(false);
-    }}
-    className="p-2 rounded-lg bg-purple-100 hover:bg-purple-200 shadow transition"
-  >
-    <WandSparkles size={18} className="text-purple-500" />
-  </button>
+  disabled={!context.trim()}
+  onClick={() => {
+    if (!context.trim()) return;
+    setShowToneOptions(!showToneOptions);
+    setShowLengthOptions(false);
+  }}
+  className={`p-2 rounded-lg shadow transition 
+    ${!context.trim() 
+      ? "bg-gray-200 cursor-not-allowed" 
+      : "bg-purple-100 hover:bg-purple-200"}`}
+>
+  <WandSparkles size={18} className={`${!context.trim() ? "text-gray-400" : "text-purple-500"}`} />
+</button>
+
 
   {/* Popover */}
   {showToneOptions && (
@@ -173,14 +197,20 @@ export default function Home() {
             {/* Length Modifier */}
 <div className="relative group">
   <button
-    onClick={() => {
-      setShowLengthOptions(!showLengthOptions);
-      setShowToneOptions(false);
-    }}
-    className="p-2 rounded-lg bg-green-100 hover:bg-green-200 shadow transition"
-  >
-    <Edit3 size={18} className="text-green-500" />
-  </button>
+  disabled={!context.trim()}
+  onClick={() => {
+    if (!context.trim()) return;
+    setShowLengthOptions(!showLengthOptions);
+    setShowToneOptions(false);
+  }}
+  className={`p-2 rounded-lg shadow transition 
+    ${!context.trim() 
+      ? "bg-gray-200 cursor-not-allowed" 
+      : "bg-green-100 hover:bg-green-200"}`}
+>
+  <Edit3 size={18} className={`${!context.trim() ? "text-gray-400" : "text-green-500"}`} />
+</button>
+
 
   {/* Popover */}
   {showLengthOptions && (
